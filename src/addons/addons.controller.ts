@@ -7,17 +7,23 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-import { CreateAddonsDto } from './dto/create-addons.dto';
+import { CreateAddonsDto } from './create-addons.dto';
 import { AddonsService } from './addons.service';
-import { Addons } from './interfaces/addons.interface';
+import { Addons } from './addons.interface';
+import {
+  InjectModel,
+  synchronize,
+  InjectConnection,
+  Connection,
+} from 'nestjs-objection/dist';
 
 @Controller('addons')
 export class AddonsController {
   constructor(private readonly addonService: AddonsService) {}
 
   @Get()
-  findAll(): Addons[] {
-    return this.addonService.findAll();
+  async findAll(): Promise<Addons[]> {
+    return await this.addonService.findAll();
   }
 
   @Get(':id')
@@ -26,8 +32,8 @@ export class AddonsController {
   }
 
   @Post()
-  create(@Body() createAddonsDto: CreateAddonsDto): string {
-    return `Created Item Name: ${createAddonsDto.name}`;
+  async create(@Body() createAddonsDto: CreateAddonsDto) {
+    return await this.addonService.create(createAddonsDto);
   }
 
   @Patch(':id')

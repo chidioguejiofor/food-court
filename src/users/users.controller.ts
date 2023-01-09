@@ -7,6 +7,8 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { User } from './user.models';
 
 import { CreateUsersDto } from 'src/users/create-users.dto';
 import { Users } from 'src/users/users.interface';
@@ -14,21 +16,33 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly categoryService: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @Get()
   async findAll(): Promise<Users[]> {
-    return await this.categoryService.findAll();
+    return await this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id): Users {
-    return this.categoryService.findOne(id);
+  @Get(':userId')
+  findOne(@Param('userId') userId): Promise<Users> {
+    return this.userService.findOne(userId);
   }
 
   @Post()
   async create(@Body() createCategoriesDto: CreateUsersDto) {
-    return await this.categoryService.create(createCategoriesDto);
+    const user = await User.query()
+      .where('email', createCategoriesDto.email)
+      .first();
+    if (user) {
+      return { msg: 'User Already Exist' };
+    }
+    const salt = 10;
+    const hashedPassword = await bcrypt.hash(
+      createCategoriesDto.password,
+      salt,
+    );
+    createCategoriesDto.password = hashedPassword;
+    return await this.userService.create(createCategoriesDto);
   }
 
   @Patch(':id')

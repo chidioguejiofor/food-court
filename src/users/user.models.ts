@@ -5,8 +5,6 @@ export class User extends Model {
   @Column({ type: columnTypes.increments })
   id: number;
   @Column({ type: columnTypes.string })
-  user_name: string;
-  @Column({ type: columnTypes.string })
   first_name: string;
   @Column({ type: columnTypes.string })
   last_name: string;

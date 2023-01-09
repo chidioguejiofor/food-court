@@ -1,4 +1,4 @@
-export interface Addons{
+export interface Addons {
   id?: number;
   name: string;
   description: string;

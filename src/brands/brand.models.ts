@@ -1,4 +1,11 @@
-import { Model, Column, Table, columnTypes, Relation, relationTypes,  } from 'nestjs-objection';
+import {
+  Model,
+  Column,
+  Table,
+  columnTypes,
+  Relation,
+  relationTypes,
+} from 'nestjs-objection';
 import { Addon } from 'src/addons/addon.models';
 import { Category } from 'src/categories/category.models';
 
@@ -27,7 +34,5 @@ export class Brand extends Model {
       to: 'categories.brand_id',
     },
   })
-
   categories: Category[];
-
 }

@@ -1,4 +1,9 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateBrandsDto {
   readonly id: number;
-  readonly name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 }

@@ -11,9 +11,9 @@ export class BrandsService {
     return brands;
   }
 
-  findOne(id: string): Brands {
-    // return this.addon.find((addon) => addon.id === id);
-    return {} as Brands;
+  async findOne(brandId: string): Promise<Brands> {
+    const brand = await Brand.query().findById(brandId);
+    return brand;
   }
 
   async create(data: any) {
@@ -61,8 +61,8 @@ export class BrandsService {
   }
 
   async createAddon(data: any) {
-    const category = await Addon.query().insert(data);
-    return category;
+    const addon = await Addon.query().insert(data);
+    return addon;
   }
 
   async updateAddon(brandId: number, addonId: number, data: any) {

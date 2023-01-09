@@ -1,8 +1,17 @@
+import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+
 export class CreateAddonsDto {
   readonly id: number;
+
+  @IsNotEmpty()
+  @IsString()
   readonly name: string;
-  readonly description: string;
+
+  @IsString()
+  readonly description?: string;
+
+  @IsNumber()
   readonly price: number;
-  readonly category: string;
-  readonly brand_id: number;
+
+  brand_id: number;
 }

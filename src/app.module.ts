@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AddonsController } from './addons/addons.controller';
-import { AddonsService } from './addons/addons.service';
-import { KnexModule } from 'nest-knexjs';
-import { ObjectionModule, Model } from 'nestjs-objection/dist';
-import { AddonModule } from './addons/addon.module';
+// import { AddonsController } from './addons/addons.controller';
+// import { AddonsService } from '../../addons.service';
+import { ObjectionModule } from 'nestjs-objection/dist';
 import { Addon } from './addons/addon.models';
 import { UserController } from './users/users.controller';
 import { BrandsController } from './brands/brands.controller';
-import { CategoryController } from './categories/categories.controller';
+// import { CategoryController } from '../../categories.controller';
 import { BrandsService } from './brands/brands.service';
 import { UsersService } from './users/users.service';
-import { CategoriesService } from './categories/categories.service';
+// import { CategoriesService } from './categories/categories.service';
+import { AuthService } from './auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -33,20 +35,10 @@ dotenv.config();
       },
     }),
     ObjectionModule.forFeature([Addon]),
+    AuthModule,
+    UsersModule,
   ],
-  controllers: [
-    AppController,
-    AddonsController,
-    UserController,
-    BrandsController,
-    CategoryController,
-  ],
-  providers: [
-    AppService,
-    AddonsService,
-    BrandsService,
-    UsersService,
-    CategoriesService,
-  ],
+  controllers: [AppController, UserController, BrandsController],
+  providers: [AppService, BrandsService, UsersService, AuthService, JwtService],
 })
 export class AppModule {}

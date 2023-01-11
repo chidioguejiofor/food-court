@@ -91,7 +91,9 @@ Nest is [MIT licensed](LICENSE).
 
   - Creates a new user using the submitted fields(name, description, price, category)
 
-    Sample: curl -X POST -H "Content-Type: application/json" -d '{"email": "ojcollins@gmail.com", "password": "12345","first_name": "OJ", "last_name": "Collins", "role": "admin"}' http://localhost:3000/users
+    Sample: 
+    ```curl -X POST -H "Content-Type: application/json" -d '{"email": "ojcollins@gmail.com", "password": "12345","first_name": "OJ", "last_name": "Collins", "role": "admin"}' http://localhost:3000/users```
+    ```json
     {
     "email": "ojcollins@gmail.com",
     "password": "$2b$10$aCwKuAE5sG4mfkvLbJ/SpuDoB3RJC8GGhs0beUTt7niEOIDZbi1p.",
@@ -100,7 +102,7 @@ Nest is [MIT licensed](LICENSE).
     "role": "admin",
     "id": 6
     }
-
+    ```
 #### GET /users
 
 - General:
